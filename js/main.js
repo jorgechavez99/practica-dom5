@@ -4,13 +4,13 @@ const foto = document.querySelector('#foto img'); //foto del banner
 const recomendados = document.querySelector('#recomendados'); // donde voy a incluir las fotos creadas
 const destinos = document.querySelector('#destinos') //select
 const destinosFotos = document.querySelector('#destinosFotos')
-
+const mostrarImagenSelect = document.querySelector('#mostrarImagenSelect')
 
 const fragment = document.createDocumentFragment();
 
 //crear los array que voy a utilizar
 
-arrayBanner = [
+const arrayBanner = [
     {
         id: 1,
         src: 'assets/banner/1.jpg',
@@ -57,7 +57,7 @@ arrayBanner = [
     }
 ];
 
-arrayFotos = [
+const arrayFotos = [
     {
         src: 'assets/viajes/viajes-1.jpg',
         alt: 'foto de playa con palmera',
@@ -86,24 +86,22 @@ arrayCiudades = ['Madrid', 'Burgos', 'Barcelona', 'Logroño', 'Sevilla', 'Valenc
 
 destinos.addEventListener('change', (ev) => {
 
-    const ciudades = ev.target.value
-    console.log(ciudades)
-    const ciudadFoto = arrayBanner.find((item) => item.ciudad == ciudades)
-    console.log(ciudadFoto)
+    const ciudad = ev.target.value
 
-    //mostrarFotoCiudades(ciudadFoto)
-    
-    const { src, ciudad } = ciudadFoto
 
-    const cajadest = document.createElement('DIV')
-    const imagendest = document.createElement('IMG')
-    const titulodest = document.createElement('H2')
-    imagendest.src = src
-    titulodest.textContent = ciudad
-    cajadest.append(titulodest,imagendest)
+    mostrarFotoCiudades(ciudad)
 
-    fragment.append(cajadest)
-    destinosFotos.append(fragment)
+    /* const { src, ciudad } = ciudadFoto
+ 
+     const cajadest = document.createElement('DIV')
+     const imagendest = document.createElement('IMG')
+     const titulodest = document.createElement('H2')
+     imagendest.src = src
+     titulodest.textContent = ciudad
+     cajadest.append(titulodest,imagendest)
+ 
+     fragment.append(cajadest)
+     destinosFotos.append(fragment)*/
 })
 
 const mostrarBanner = () => {
@@ -162,18 +160,24 @@ const mostrarCiudades = () => {
     destinos.append(fragment)
 };
 
-/*const mostrarFotoCiudades = (ciudadFoto) => {
+const mostrarFotoCiudades = (ciudad) => {
+    console.log({ ciudad })
+    const ciudadFoto = arrayBanner.find((item) => item.ciudad == ciudad)
+    console.log(ciudadFoto)
 
- const cajadest = document.createElement('DIV')
+    const { src, ciudad: nombreCiudad } = ciudadFoto
+    mostrarImagenSelect.innerHTML = ''
+    const cajadest = document.createElement('DIV')
     const imagendest = document.createElement('IMG')
     const titulodest = document.createElement('H2')
     imagendest.src = src
-    titulodest.textContent = ciudad
-    cajadest.append(titulodest,imagendest)
+    titulodest.textContent = nombreCiudad
+imagendest.classList.add=('img-fluid');
+    cajadest.append(titulodest, imagendest)
 
     fragment.append(cajadest)
-    destinosFotos.append(fragment)
-}*/
+    mostrarImagenSelect.append(fragment)
+}
 mostrarBanner()
 mostrarImagenes()
 mostrarCiudades()
